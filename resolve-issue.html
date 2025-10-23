@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tankas - Resolve Issue</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/resolve-issue.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark">
+<div class="relative flex h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root">
+    <header class="flex items-center justify-between p-4 border-b border-border-light dark:border-border-dark">
+        <div class="flex items-center gap-4">
+            <button id="backBtn" class="text-text-light dark:text-text-dark hover:opacity-70 transition-opacity">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1 class="font-bold text-lg text-text-light dark:text-text-dark">Resolve Issue</h1>
+        </div>
+        <button class="text-text-light dark:text-text-dark hover:opacity-70 transition-opacity">
+            <span class="material-symbols-outlined">more_vert</span>
+        </button>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-4 space-y-6">
+        <div id="loadingSpinner" class="flex items-center justify-center h-64">
+            <div class="text-center">
+                <div class="inline-block animate-spin">
+                    <span class="material-symbols-outlined text-4xl text-primary">refresh</span>
+                </div>
+                <p class="mt-4 text-text-light dark:text-text-dark">Loading issue details...</p>
+            </div>
+        </div>
+
+        <div id="contentContainer" class="space-y-4 hidden">
+            <div>
+                <h2 id="issueTitle" class="font-bold text-xl text-green-600 text-text-light dark:text-text-dark"></h2>
+                <p id="issueReporter" class="text-sm text-text-secondary-light dark:text-text-secondary-dark"></p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold text-md text-text-light dark:text-text-dark mb-2">Before</h3>
+                    <div class="aspect-video bg-card-light dark:bg-card-dark rounded-xl overflow-hidden">
+                        <img id="beforeImage" alt="Before image of the issue" class="w-full h-full object-cover"/>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-md text-text-light dark:text-text-dark mb-2">After</h3>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="aspect-video bg-card-light dark:bg-card-dark border-2 border-dashed border-border-light dark:border-border-dark rounded-xl flex flex-col items-center justify-center text-center p-4" id="dropZone">
+                            <div class="flex flex-col items-center justify-center space-y-2 text-text-secondary-light dark:text-text-secondary-dark" id="uploadPrompt">
+                                <span class="material-symbols-outlined text-4xl">add_a_photo</span>
+                                <p class="font-semibold">Upload 'After' Picture</p>
+                                <p class="text-xs">Show the amazing work you've done!</p>
+                                <input accept="image/*" class="sr-only" id="afterImageUpload" name="after_image" type="file"/>
+                                <label class="mt-2 cursor-pointer bg-green-600 text-primary dark:bg-primary/30 dark:text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-primary/30 dark:hover:bg-primary/40 transition-colors" for="afterImageUpload">
+                                    Choose File
+                                </label>
+                            </div>
+                            <div id="uploadPreview" class="hidden w-full">
+                                <img id="previewImage" alt="Preview" class="w-full h-full object-cover rounded-lg"/>
+                                <button type="button" id="removeImageBtn" class="mt-2 w-full bg-red-500/20 text-red-500 px-4 py-2 rounded-full text-sm font-bold hover:bg-red-500/30 transition-colors">
+                                    Remove Image
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-4 border-t border-border-light dark:border-border-dark">
+        <button id="resolveBtn" class="w-full bg-green-600 text-white py-4 rounded-full font-bold text-lg shadow-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            <span class="material-symbols-outlined">task_alt</span>
+            Mark as Resolved
+        </button>
+    </footer>
+</div>
+
+<!-- Success/Failure Modal -->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white dark:bg-card-dark rounded-xl p-6 max-w-sm w-full shadow-lg">
+        <div class="text-center">
+            <span id="modalIcon" class="material-symbols-outlined text-5xl block mb-4"></span>
+            <h2 id="modalTitle" class="font-bold text-xl text-text-light dark:text-text-dark mb-2"></h2>
+            <p id="modalMessage" class="text-text-secondary-light dark:text-text-secondary-dark mb-6"></p>
+            <button id="modalBtn" class="w-full bg-green-600 text-white py-2 rounded-full font-bold hover:bg-primary/90 transition-colors">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="js/resolve-issue.js"></script>
+</body>
+</html>

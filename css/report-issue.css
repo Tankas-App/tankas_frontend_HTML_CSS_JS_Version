@@ -1,0 +1,106 @@
+/* ================================================
+   REPORT ISSUE PAGE - CUSTOM STYLES
+   ================================================ */
+
+/* Photo Preview Animation */
+#photoPreview {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* GPS Status Pulse */
+.gps-searching {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Form Input Focus States */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  box-shadow: 0 0 0 3px rgba(56, 224, 123, 0.1);
+}
+
+/* Remove Photo Button Hover */
+#removePhotoBtn:hover {
+  transform: scale(1.1);
+}
+
+#removePhotoBtn {
+  transition: all 0.2s ease;
+}
+
+/* Upload Button Animation */
+#uploadBtn:active {
+  transform: scale(0.98);
+}
+
+/* Points Preview Shine Effect */
+#pointsPreview {
+  position: relative;
+  overflow: hidden;
+}
+
+#pointsPreview::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(56, 224, 123, 0.1),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* Success Animation */
+.success-checkmark {
+  animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Mobile Camera Button */
+@media (max-width: 768px) {
+  #photoInput[capture] {
+    /* Trigger mobile camera */
+  }
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Dashboard - Tankas</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  
+  <!-- Leaflet CSS for Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#38e07b",
+            "secondary": "#2ecc71",
+            "warning": "#f1c40f",
+            "background-light": "#f6f8f7",
+            "background-dark": "#122017",
+            "text-light": "#ecf0f1",
+            "text-dark": "#0e1a13",
+            "border-light": "#d1e6d9",
+            "border-dark": "#2a3f32",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+  <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden pb-20">
+    
+    <!-- Top App Bar -->
+    <div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-40 shadow-sm">
+      <div class="flex items-center gap-4">
+        <div id="userAvatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 skeleton"></div>
+        <div>
+          <h2 id="userName" class="text-text-dark dark:text-text-light text-lg font-bold leading-tight tracking-[-0.015em]">
+            <span class="skeleton-text">Loading...</span>
+          </h2>
+          <p id="userPoints" class="text-primary text-sm font-medium">
+            <span class="skeleton-text">0 Points</span>
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="notificationBtn" class="relative flex items-center justify-center h-12 w-12 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <span class="material-symbols-outlined text-text-dark dark:text-text-light">notifications</span>
+          <span id="notificationBadge" class="hidden absolute top-2 right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+        </button>
+        <button id="logoutBtn" class="flex items-center justify-center h-12 w-12 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <span class="material-symbols-outlined text-text-dark dark:text-text-light">logout</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="flex flex-wrap gap-3 px-4 py-3">
+      <div class="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-border-light dark:border-border-dark p-4 items-start bg-white dark:bg-background-dark/50 shadow-sm">
+        <p id="tasksCompleted" class="text-text-dark dark:text-text-light tracking-light text-3xl font-bold leading-tight skeleton-text">0</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Tasks Completed</p>
+      </div>
+      <div class="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-border-light dark:border-border-dark p-4 items-start bg-white dark:bg-background-dark/50 shadow-sm">
+        <p id="issuesReported" class="text-text-dark dark:text-text-light tracking-light text-3xl font-bold leading-tight skeleton-text">0</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Issues Reported</p>
+      </div>
+      <div class="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-border-light dark:border-border-dark p-4 items-start bg-white dark:bg-background-dark/50 shadow-sm">
+        <p id="communityRank" class="text-text-dark dark:text-text-light tracking-light text-3xl font-bold leading-tight skeleton-text">#-</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Community Rank</p>
+      </div>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="flex gap-4 px-4 py-3">
+      <button id="reportIssueBtn" class="flex-1 flex items-center justify-center rounded-lg bg-primary text-text-dark py-3 text-base font-bold leading-normal hover:opacity-90 transition-opacity shadow-md">
+        <span class="material-symbols-outlined mr-2">add_circle</span> Report Issue
+      </button>
+      <button id="findTaskBtn" class="flex-1 flex items-center justify-center rounded-lg bg-secondary text-white py-3 text-base font-bold leading-normal hover:opacity-90 transition-opacity shadow-md">
+        <span class="material-symbols-outlined mr-2">search</span> Find a Task
+      </button>
+    </div>
+
+    <!-- Map Section -->
+    <div class="px-4 py-3">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-text-dark dark:text-text-light text-lg font-bold leading-tight tracking-[-0.015em]">Nearby Issues</h3>
+        <button id="refreshMapBtn" class="text-primary text-sm font-medium flex items-center gap-1">
+          <span class="material-symbols-outlined text-lg">refresh</span>
+          Refresh
+        </button>
+      </div>
+      
+      <!-- Map Container -->
+      <div id="map" class="w-full h-80 rounded-lg shadow-md"></div>
+      
+      <!-- Map Legend -->
+      <div class="flex gap-4 mt-3 text-xs">
+        <div class="flex items-center gap-1">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div>
+          <span class="text-gray-600 dark:text-gray-400">Open</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <span class="text-gray-600 dark:text-gray-400">In Progress</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          <span class="text-gray-600 dark:text-gray-400">Resolved</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Activity Section -->
+    <div class="px-4 py-3">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-text-dark dark:text-text-light text-lg font-bold leading-tight tracking-[-0.015em]">My Activity</h3>
+        <button class="text-primary text-sm font-medium">View All</button>
+      </div>
+      
+      <!-- Activity Feed -->
+      <div id="activityFeed" class="flex flex-col gap-2">
+        <!-- Skeleton loaders -->
+        <div class="activity-skeleton">
+          <div class="flex items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
+            <div class="w-12 h-12 rounded-lg skeleton"></div>
+            <div class="flex-1 space-y-2">
+              <div class="h-4 skeleton rounded w-3/4"></div>
+              <div class="h-3 skeleton rounded w-1/2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="activity-skeleton">
+          <div class="flex items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg">
+            <div class="w-12 h-12 rounded-lg skeleton"></div>
+            <div class="flex-1 space-y-2">
+              <div class="h-4 skeleton rounded w-3/4"></div>
+              <div class="h-3 skeleton rounded w-1/2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-border-light dark:border-border-dark flex justify-around py-3 shadow-lg z-50">
+    <button class="nav-item active flex flex-col items-center gap-1" data-page="dashboard">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="text-xs font-medium">Dashboard</span>
+    </button>
+    <button class="nav-item flex flex-col items-center gap-1" data-page="map">
+      <span class="material-symbols-outlined">map</span>
+      <span class="text-xs font-medium">Map</span>
+    </button>
+    <button class="nav-item flex flex-col items-center gap-1" data-page="report">
+      <span class="material-symbols-outlined">add_circle</span>
+      <span class="text-xs font-medium">Report</span>
+    </button>
+    <button class="nav-item flex flex-col items-center gap-1" data-page="profile">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-xs font-medium">Profile</span>
+    </button>
+  </nav>
+
+  <!-- Leaflet JS for Maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- App JS -->
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

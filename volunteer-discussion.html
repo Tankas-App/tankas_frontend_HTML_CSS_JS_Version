@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Tankas - Issue Discussion</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/volunteer.css"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark">
+  <div class="relative flex h-screen w-full flex-col bg-[#f9f9f9] dark:bg-[#122017] group/design-root overflow-hidden">
+    <!-- Header -->
+    <header class="flex items-center justify-between p-4 border-b border-[#e8f2ec] dark:border-[#2c3e34]">
+      <div class="flex items-center gap-4">
+        <button class="text-[#0e1a13] dark:text-white" id="backBtn">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <img alt="User avatar" class="w-10 h-10 rounded-full" id="issueAvatar" src=""/>
+            <span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-white dark:border-[#122017]"></span>
+          </div>
+          <div>
+            <h1 class="font-bold text-lg text-[#0e1a13] dark:text-white" id="issueTitle">Loading...</h1>
+            <p class="text-sm text-[#51946c] dark:text-[#a3b1a9]" id="volunteerCount">12 Active Volunteers</p>
+          </div>
+        </div>
+      </div>
+      <button class="text-[#0e1a13] dark:text-white" id="moreBtn">
+        <span class="material-symbols-outlined">more_vert</span>
+      </button>
+    </header>
+
+    <!-- Main Discussion Area -->
+    <main class="flex-1 overflow-y-auto p-4 space-y-6" id="discussionContainer">
+      <!-- Messages will be loaded here -->
+    </main>
+
+    <!-- Message Input Footer -->
+    <footer class="p-4 border-t border-[#e8f2ec] dark:border-[#2c3e34]">
+      <div class="flex items-center gap-2 bg-[#e8f2ec] dark:bg-[#1a2b21] rounded-full p-2">
+        <button class="text-[#51946c] dark:text-[#a3b1a9] p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full" id="attachBtn">
+          <span class="material-symbols-outlined">add_circle</span>
+        </button>
+        <input class="flex-1 bg-transparent text-[#0e1a13] dark:text-white placeholder:text-[#51946c] dark:placeholder:text-[#a3b1a9] focus:outline-none text-sm" placeholder="Type a message..." type="text" id="messageInput"/>
+        <button class="text-[#51946c] dark:text-[#a3b1a9] p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full" id="voiceBtn">
+          <span class="material-symbols-outlined">mic</span>
+        </button>
+        <button class="bg-primary text-white p-2 rounded-full shadow-md hover:bg-primary/90 transition-colors" id="sendBtn">
+          <span class="material-symbols-outlined">send</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmModal" class="modal hidden">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Confirm Volunteering</h2>
+        <button class="modal-close" id="closeModalBtn">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to volunteer for this issue?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+        <button class="btn btn-primary" id="confirmBtn">Yes, Volunteer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/volunteer.js"></script>
+</body>
+</html>

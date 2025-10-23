@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Tankas - Cleaner Communities, Together</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#38e07b",
+            "background-light": "#f6f8f7",
+            "background-dark": "#122017",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark font-display text-[#0e1a13] dark:text-white">
+    
+    <!-- Fixed Logo in Corner -->
+    <!-- <div class="fixed top-6 left-6 z-50 flex items-center space-x-2 bg-black dark:bg-gray-800 px-4 py-2 rounded-full shadow-lg">
+      <svg class="text-primary" fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+        <path d="M2 17l10 5 10-5"></path>
+        <path d="M2 12l10 5 10-5"></path>
+      </svg>
+      <img src="assets/imgs/Tankas_Brand_Mark@2x.png" width="20px">
+      <span class="text-xl font-bold logo_text">Tankas</span>
+    </div> -->
+
+    <!-- Hero Section -->
+    <div class="relative h-[600px] w-full overflow-hidden">
+      <!-- Hero Image -->
+      <div class="absolute inset-0 bg-center bg-cover" 
+           style='background-image: url("assets/imgs/volunteers-picking-up-trash-in-a-green-city-park-2025-06-02-20-20-12-utc.jpg");'>
+      </div>
+      
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 hero-overlay"></div>
+      
+      <!-- Hero Content -->
+      <div class="relative h-full flex flex-col items-center justify-center text-center px-4 z-10">
+        <h1 class="text-4xl md:text-4xl lg:text-4xl font-bold leading-tight text-white mb-6 max-w-4xl">
+          Cleaner Communities, Together.
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl">
+          Report sanitation issues, volunteer for cleanups, and make a real impact in your community.
+        </p>
+        
+        <!-- Platform Stats -->
+        <!-- <div id="platformStats" class="flex justify-center gap-8 md:gap-16 mb-8"> -->
+          <!-- Skeleton loaders -->
+          <!-- <div class="text-center">
+            <div class="h-10 w-20 bg-white/20 rounded skeleton mb-2"></div>
+            <div class="h-4 w-24 bg-white/20 rounded skeleton"></div>
+          </div>
+          <div class="text-center">
+            <div class="h-10 w-20 bg-white/20 rounded skeleton mb-2"></div>
+            <div class="h-4 w-24 bg-white/20 rounded skeleton"></div>
+          </div>
+          <div class="text-center">
+            <div class="h-10 w-20 bg-white/20 rounded skeleton mb-2"></div>
+            <div class="h-4 w-24 bg-white/20 rounded skeleton"></div>
+          </div>
+        </div> -->
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col md:flex-row gap-4 w-full max-w-md">
+          <button id="signupBtn" class="flex-1 bg-primary text-[#0e1a13] font-bold py-4 px-8 rounded-lg text-lg hover:opacity-90 transition-opacity shadow-lg">
+            Join the Movement
+          </button>
+          <button id="loginBtn" class="flex-1 bg-white/10 backdrop-blur-sm text-white font-bold py-4 px-8 rounded-lg text-lg border-2 border-white/30 hover:bg-white/20 transition-all shadow-lg">
+            Log In
+          </button>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="mt-12 flex items-center space-x-2 text-white">
+          <span class="material-symbols-outlined text-yellow-400 text-2xl">star</span>
+          <p class="text-lg italic">"Snap.Share.Clean!"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Community Reports Section -->
+    <div class="px-4 py-16 max-w-7xl mx-auto w-full">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Recent Community Reports</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400">See what your neighbors are working on</p>
+      </div>
+      
+      <div id="recentIssues" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Skeleton loaders -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md">
+          <div class="h-48 skeleton"></div>
+          <div class="p-4 space-y-3">
+            <div class="h-6 skeleton rounded"></div>
+            <div class="h-4 skeleton rounded"></div>
+            <div class="h-4 skeleton rounded w-3/4"></div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md">
+          <div class="h-48 skeleton"></div>
+          <div class="p-4 space-y-3">
+            <div class="h-6 skeleton rounded"></div>
+            <div class="h-4 skeleton rounded"></div>
+            <div class="h-4 skeleton rounded w-3/4"></div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md">
+          <div class="h-48 skeleton"></div>
+          <div class="p-4 space-y-3">
+            <div class="h-6 skeleton rounded"></div>
+            <div class="h-4 skeleton rounded"></div>
+            <div class="h-4 skeleton rounded w-3/4"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View All Button -->
+      <div class="text-center mt-8">
+        <a href="all-issues.html" class="bg-primary text-[#0e1a13] font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-opacity inline-block">
+          View All Reports
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-900 py-8 mt-16">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-gray-600 dark:text-gray-400">© 2025 Tankas. Making communities cleaner, together.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full p-8 relative shadow-2xl">
+      <button id="closeSignupModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      
+      <h2 class="text-3xl font-bold mb-6 text-[#0e1a13] dark:text-white">Join Tankas</h2>
+      
+      <form id="signupForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-2 text-[#0e1a13] dark:text-white">Username</label>
+          <input type="text" id="signup_username" required 
+                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-2 text-[#0e1a13] dark:text-white">Email</label>
+          <input type="email" id="signup_email" required 
+                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-2 text-[#0e1a13] dark:text-white">Display Name (Optional)</label>
+          <input type="text" id="signup_display_name" 
+                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-2 text-[#0e1a13] dark:text-white">Password</label>
+          <input type="password" id="signup_password" required minlength="6"
+                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+          <p class="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
+        </div>
+        
+        <button type="submit" 
+                class="w-full bg-primary text-[#0e1a13] font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center mt-6">
+          <span id="signupBtnText">Sign Up</span>
+          <div id="signupSpinner" class="hidden ml-2 spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full p-8 relative shadow-2xl">
+      <button id="closeLoginModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      
+      <h2 class="text-3xl font-bold mb-6 text-[#0e1a13] dark:text-white">Welcome Back</h2>
+      
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-2 text-[#0e1a13] dark:text-white">Username</label>
+          <input type="text" id="login_username" required 
+                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium mb-2 text-[#0e1a13] dark:text-white">Password</label>
+          <input type="password" id="login_password" required 
+                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+        </div>
+        
+        <button type="submit" 
+                class="w-full bg-primary text-[#0e1a13] font-bold py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center mt-6">
+          <span id="loginBtnText">Log In</span>
+          <div id="loginSpinner" class="hidden ml-2 spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+:root {
+    --primary: #38e07b;
+    --background-light: #f6f8f7;
+    --background-dark: #122017;
+    --card-light: #ffffff;
+    --card-dark: #1a2b21;
+    --text-light: #0e1a13;
+    --text-dark: #ffffff;
+    --text-secondary-light: #51946c;
+    --text-secondary-dark: #a3b1a9;
+    --border-light: #e8f2ec;
+    --border-dark: #2c3e34;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100dvh;
+}
+
+html.light {
+    color-scheme: light;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
+/* Tailwind config is applied inline, but this ensures consistency */
+.bg-background-light { background-color: var(--background-light); }
+.dark .bg-background-dark { background-color: var(--background-dark); }
+
+/* Drop zone hover effect */
+#dropZone.dragover {
+    background-color: rgba(56, 224, 123, 0.1);
+    border-color: var(--primary);
+}
+
+/* Animation for loading spinner */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Modal animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#modal:not(.hidden) > div {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Image preview styling */
+#uploadPreview img {
+    max-height: 300px;
+    width: auto;
+}
+
+/* Disable button state */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

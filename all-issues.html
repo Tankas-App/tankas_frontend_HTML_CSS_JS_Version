@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>All Issues - Tankas</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#38e07b",
+              "background-light": "#f6f8f7",
+              "background-dark": "#122017",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div
+      class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark font-display text-[#0e1a13] dark:text-white"
+    >
+      <!-- Logo -->
+      <!-- <div class="fixed top-6 left-6 z-50 flex items-center space-x-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-lg">
+            <svg class="text-primary" fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="text-xl font-bold">Tankas</span>
+        </div> -->
+
+      <!-- Header -->
+      <div
+        class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-40 shadow-sm"
+      >
+        <button
+          id="backBtn"
+          class="text-gray-800 dark:text-gray-200 flex size-12 shrink-0 items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+        >
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h2
+          class="text-gray-800 dark:text-gray-200 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center font-display"
+        >
+          All Issues
+        </h2>
+        <div class="flex size-12 shrink-0 items-center"></div>
+      </div>
+
+      <!-- Hero Section -->
+      <div
+        class="py-20 text-center bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700"
+      >
+        <h1 class="text-5xl font-bold mb-4">All Community Issues</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Explore every reported sanitation issue and find a cleanup effort near
+          you.
+        </p>
+      </div>
+
+      <!-- Main Content -->
+      <div class="px-4 py-16 max-w-7xl mx-auto w-full">
+        <!-- Search and Filter -->
+        <div
+          class="mb-10 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md flex flex-col md:flex-row gap-4"
+        >
+          <input
+            type="text"
+            placeholder="Search by title or description..."
+            class="flex-1 px-4 py-3 border-none rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
+          />
+          <button
+            class="bg-primary text-[#0e1a13] font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+          >
+            <span class="material-symbols-outlined">filter_alt</span>
+            Filter
+          </button>
+        </div>
+
+        <!-- Issues Grid -->
+        <div
+          id="allIssuesContainer"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        >
+          <!-- Skeleton loaders -->
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md"
+          >
+            <div class="h-48 skeleton"></div>
+            <div class="p-4 space-y-3">
+              <div class="h-6 skeleton rounded"></div>
+              <div class="h-4 skeleton rounded w-3/4"></div>
+            </div>
+          </div>
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md"
+          >
+            <div class="h-48 skeleton"></div>
+            <div class="p-4 space-y-3">
+              <div class="h-6 skeleton rounded"></div>
+              <div class="h-4 skeleton rounded w-3/4"></div>
+            </div>
+          </div>
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md"
+          >
+            <div class="h-48 skeleton"></div>
+            <div class="p-4 space-y-3">
+              <div class="h-6 skeleton rounded"></div>
+              <div class="h-4 skeleton rounded w-3/4"></div>
+            </div>
+          </div>
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hidden xl:block"
+          >
+            <div class="h-48 skeleton"></div>
+            <div class="p-4 space-y-3">
+              <div class="h-6 skeleton rounded"></div>
+              <div class="h-4 skeleton rounded w-3/4"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading More Indicator -->
+        <div id="loadingMore" class="text-center mt-10 hidden">
+          <p class="text-gray-500 dark:text-gray-400 mb-2">Loading more...</p>
+          <div
+            class="spinner mx-auto"
+            style="width: 30px; height: 30px; border-width: 3px"
+          ></div>
+        </div>
+
+        <!-- End of Reports -->
+        <div id="endOfReports" class="text-center mt-10 hidden">
+          <p class="text-gray-500 dark:text-gray-400">
+            ✓ You've reached the end of the reports.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="bg-gray-100 dark:bg-gray-900 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+          <p class="text-gray-600 dark:text-gray-400">
+            © 2025 Tankas. Making communities cleaner, together.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/all-issues.js"></script>
+  </body>
+</html>

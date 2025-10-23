@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Report New Issue - Tankas</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#38e07b",
+            "background-light": "#f6f8f7",
+            "background-dark": "#122017",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/report-issue.css">
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+  <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+    
+    <!-- Header -->
+    <div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-40 shadow-sm">
+      <button id="backBtn" class="text-gray-800 dark:text-gray-200 flex size-12 shrink-0 items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <h2 class="text-gray-800 dark:text-gray-200 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center font-display">
+        Report New Issue
+      </h2>
+      <div class="flex size-12 shrink-0 items-center"></div>
+    </div>
+
+    <!-- Form Container -->
+    <div class="flex-grow p-4 space-y-6 max-w-2xl mx-auto w-full">
+      
+      <form id="reportIssueForm" class="space-y-6">
+        
+        <!-- Title Input -->
+        <div class="flex flex-col">
+          <label class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal pb-2 font-display">
+            Title *
+          </label>
+          <input 
+            type="text" 
+            id="issueTitle" 
+            required
+            class="form-input w-full rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-primary/20 h-14 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-4 text-base font-normal leading-normal font-display" 
+            placeholder="e.g., Overflowing trash can"
+          />
+        </div>
+
+        <!-- Description Textarea -->
+        <div class="flex flex-col">
+          <label class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal pb-2 font-display">
+            Description *
+          </label>
+          <textarea 
+            id="issueDescription" 
+            required
+            rows="5"
+            class="form-input w-full rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-primary/20 placeholder:text-gray-500 dark:placeholder:text-gray-400 p-4 text-base font-normal leading-normal font-display resize-none" 
+            placeholder="Provide more details about the issue..."
+          ></textarea>
+        </div>
+
+        <!-- Priority Selection -->
+        <div class="flex flex-col">
+          <label class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal pb-2 font-display">
+            Priority *
+          </label>
+          <select 
+            id="issuePriority" 
+            required
+            class="form-select w-full rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-primary/20 h-14 p-4 text-base font-normal leading-normal font-display"
+          >
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <!-- Difficulty Selection -->
+        <div class="flex flex-col">
+          <label class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal pb-2 font-display">
+            Difficulty *
+          </label>
+          <select 
+            id="issueDifficulty" 
+            required
+            class="form-select w-full rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-primary/20 h-14 p-4 text-base font-normal leading-normal font-display"
+          >
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <!-- Photo Upload Section -->
+        <div class="flex flex-col">
+          <label class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal pb-2 font-display">
+            Photo * (GPS will be extracted automatically)
+          </label>
+          
+          <!-- Upload Button -->
+          <div class="relative">
+            <input 
+              type="file" 
+              id="photoInput" 
+              accept="image/*" 
+              capture="environment"
+              class="hidden"
+              required
+            />
+            <button 
+              type="button"
+              id="uploadBtn"
+              class="w-full flex items-center justify-center gap-2 rounded-lg h-14 px-5 bg-primary/30 text-gray-800 dark:text-gray-200 hover:bg-primary/40 transition-colors text-base font-bold leading-normal tracking-[0.015em] font-display"
+            >
+              <span class="material-symbols-outlined">camera_alt</span>
+              <span id="uploadBtnText">Take or Upload a Picture</span>
+            </button>
+          </div>
+
+          <!-- Photo Preview -->
+          <div id="photoPreview" class="hidden mt-4">
+            <div class="relative">
+              <img id="previewImage" src="" alt="Preview" class="w-full h-64 object-cover rounded-lg shadow-md"/>
+              <button 
+                type="button"
+                id="removePhotoBtn"
+                class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors shadow-lg"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            
+            <!-- GPS Status -->
+            <div id="gpsStatus" class="mt-3 p-3 rounded-lg bg-gray-100 dark:bg-gray-800">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-gray-500">location_searching</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">Extracting GPS data...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manual Location (Fallback) -->
+        <div id="manualLocationSection" class="hidden flex flex-col">
+          <label class="text-gray-600 dark:text-gray-400 text-base font-medium leading-normal pb-2 font-display">
+            Manual Location (No GPS in photo)
+          </label>
+          <div class="grid grid-cols-2 gap-4">
+            <input 
+              type="number" 
+              id="manualLatitude" 
+              step="any"
+              placeholder="Latitude"
+              class="form-input rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-primary/20 h-14 p-4 text-base font-normal font-display"
+            />
+            <input 
+              type="number" 
+              id="manualLongitude" 
+              step="any"
+              placeholder="Longitude"
+              class="form-input rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-primary/20 h-14 p-4 text-base font-normal font-display"
+            />
+          </div>
+          <button 
+            type="button"
+            id="useCurrentLocationBtn"
+            class="mt-2 flex items-center justify-center gap-2 text-primary text-sm font-medium hover:underline"
+          >
+            <span class="material-symbols-outlined text-sm">my_location</span>
+            Use My Current Location
+          </button>
+        </div>
+
+        <!-- Points Preview -->
+        <div id="pointsPreview" class="p-4 rounded-lg bg-primary/10 border-2 border-primary/30">
+          <div class="flex items-center justify-between">
+            <span class="text-gray-700 dark:text-gray-300 font-medium">Estimated Points:</span>
+            <span id="estimatedPoints" class="text-2xl font-bold text-primary">30</span>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Based on priority and difficulty</p>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Submit Button (Sticky) -->
+    <div class="sticky bottom-0 p-4 bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-700 shadow-lg">
+      <button 
+        type="submit"
+        form="reportIssueForm"
+        id="submitBtn"
+        class="w-full max-w-2xl mx-auto flex items-center justify-center rounded-lg h-14 px-5 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em] font-display hover:opacity-90 transition-opacity"
+      >
+        <span id="submitBtnText">Submit Report</span>
+        <div id="submitSpinner" class="hidden ml-2 spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl text-center">
+      <div class="spinner mx-auto mb-4"></div>
+      <p id="loadingText" class="text-gray-800 dark:text-gray-200 font-medium">Uploading...</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/report-issue.js"></script>
+</body>
+</html>

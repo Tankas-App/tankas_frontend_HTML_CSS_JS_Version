@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Tankas - Profile</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+    }
+
+    .profile-header {
+      background: linear-gradient(135deg, #38e07b 0%, #2cc969 100%);
+      padding: 2rem;
+      color: white;
+    }
+
+    .avatar-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1rem;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .avatar-upload-btn {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s;
+    }
+
+    .avatar-upload-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .avatar-upload-btn span {
+      color: #38e07b;
+      font-size: 20px;
+    }
+
+    #avatarInput {
+      display: none;
+    }
+
+    .profile-content {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .profile-section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .profile-section h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #0e1a13;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #51946c;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e8f2ec;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #38e07b;
+      box-shadow: 0 0 0 3px rgba(56, 224, 123, 0.1);
+    }
+
+    .form-group input:disabled {
+      background-color: #f6f8f7;
+      color: #999;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e8f2ec;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: #51946c;
+      font-size: 0.875rem;
+    }
+
+    .info-value {
+      color: #0e1a13;
+      font-weight: 600;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: #38e07b;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2cc969;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(56, 224, 123, 0.3);
+    }
+
+    .btn-secondary {
+      background: #e8f2ec;
+      color: #0e1a13;
+    }
+
+    .btn-secondary:hover {
+      background: #d0e8db;
+    }
+
+    .btn-full {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .button-group .btn {
+      flex: 1;
+    }
+
+    .edit-mode .view-only {
+      display: none;
+    }
+
+    .view-mode .edit-only {
+      display: none;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: left;
+      gap: 0.5rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover {
+      color: #d9ebe0;
+    }
+
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .dark .profile-section {
+      background: #1a2b21;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark .profile-section h2 {
+      color: white;
+    }
+
+    .dark .form-group label {
+      color: #a3b1a9;
+    }
+
+    .dark .form-group input {
+      background: #122017;
+      border-color: #2c3e34;
+      color: white;
+    }
+
+    .dark .info-label {
+      color: #a3b1a9;
+    }
+
+    .dark .info-value {
+      color: white;
+    }
+
+    .dark .info-row {
+      border-bottom-color: #2c3e34;
+    }
+
+    .dark .btn-secondary {
+      background: #2c3e34;
+      color: white;
+    }
+
+    .dark .btn-secondary:hover {
+      background: #3d5548;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark">
+  <div class="min-h-screen">
+    <!-- Header -->
+    <div class="profile-header">
+      <div class="max-w-md mx-auto text-center">
+        <button class="back-btn" onclick="goBack()" style="display: block; margin: 0 auto 1rem;">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        
+        <div class="avatar-container">
+          <img id="avatarImg" alt="Profile avatar" class="avatar-img" src="https://via.placeholder.com/120"/>
+          <button class="avatar-upload-btn" onclick="document.getElementById('avatarInput').click()" title="Change avatar">
+            <span class="material-symbols-outlined">camera_alt</span>
+          </button>
+          <input type="file" id="avatarInput" accept="image/*" onchange="handleAvatarUpload(event)"/>
+        </div>
+
+        <h1 id="displayNameHeader" class="text-2xl font-bold">Loading...</h1>
+      </div>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="profile-content">
+      <!-- Edit Display Name Section -->
+      <div class="profile-section view-mode" id="displayNameSection">
+        <div class="info-row">
+          <span class="info-label">Display Name</span>
+          <span class="info-value" id="displayNameView">Loading...</span>
+        </div>
+        <button class="btn btn-secondary btn-full" onclick="enterEditMode()">
+          <span class="material-symbols-outlined">edit</span>
+          Edit Profile
+        </button>
+      </div>
+
+      <!-- Edit Form -->
+      <div class="profile-section edit-mode" id="editFormSection">
+        <h2>Edit Profile</h2>
+        
+        <div class="form-group">
+          <label for="displayNameInput">Display Name</label>
+          <input type="text" id="displayNameInput" placeholder="Enter your display name" maxlength="50"/>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveChanges()" id="saveBtn">Save Changes</button>
+        </div>
+      </div>
+
+      <!-- User Stats -->
+      <div class="profile-section">
+        <h2>Statistics</h2>
+        <div class="info-row">
+          <span class="info-label">Points</span>
+          <span class="info-value" id="userPoints">0</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Issues Reported</span>
+          <span class="info-value" id="issuesReported">0</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Tasks Completed</span>
+          <span class="info-value" id="tasksCompleted">0</span>
+        </div>
+
+      </div>
+
+      <!-- Account Section -->
+      <div class="profile-section">
+        <h2>Account</h2>
+        <div class="info-row">
+          <span class="info-label">Username</span>
+          <span class="info-value" id="username">Loading...</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email</span>
+          <span class="info-value" id="userEmail">Loading...</span>
+        </div>
+        <button class="btn btn-secondary btn-full" onclick="handleLogout()">
+          <span class="material-symbols-outlined">logout</span>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE_URL = 'https://tankas-app-api.onrender.com';
+    let currentUser = null;
+    let isEditing = false;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('Profile page loaded');
+      await loadUserProfile();
+    });
+
+    // Load user profile
+    async function loadUserProfile() {
+      try {
+        const token = localStorage.getItem('tankas_token');
+        if (!token) {
+          window.location.href = '/index.html';
+          return;
+        }
+
+        const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) throw new Error('Failed to load profile');
+
+        currentUser = await response.json();
+        console.log('User profile loaded:', currentUser);
+        
+        displayUserProfile();
+        await loadUserStats();
+      } catch (error) {
+        console.error('Error loading profile:', error);
+        alert('Failed to load profile');
+      }
+    }
+
+    // Display user profile
+    function displayUserProfile() {
+      // Avatar
+      if (currentUser.avatar) {
+        document.getElementById('avatarImg').src = currentUser.avatar;
+      }
+
+      // Display name
+      const displayName = currentUser.display_name || currentUser.username;
+      document.getElementById('displayNameHeader').textContent = displayName;
+      document.getElementById('displayNameView').textContent = displayName;
+      document.getElementById('displayNameInput').value = displayName;
+
+      // Account info
+      document.getElementById('username').textContent = currentUser.username;
+      document.getElementById('userEmail').textContent = currentUser.email || 'Not provided';
+      document.getElementById('userPoints').textContent = (currentUser.points || 0).toLocaleString();
+    }
+
+    // Load user stats
+    async function loadUserStats() {
+      try {
+        const token = localStorage.getItem('tankas_token');
+        const response = await fetch(`${API_BASE_URL}/api/users/dashboard`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const dashboard = await response.json();
+          document.getElementById('issuesReported').textContent = dashboard.tasks_reported || 0;
+          document.getElementById('tasksCompleted').textContent = dashboard.tasks_completed || 0;
+        }
+      } catch (error) {
+        console.error('Error loading stats:', error);
+      }
+    }
+
+    // Edit mode functions
+    function enterEditMode() {
+      isEditing = true;
+      document.querySelector('.profile-content').classList.add('edit-mode');
+      document.querySelector('.profile-content').classList.remove('view-mode');
+    }
+
+    function cancelEdit() {
+      isEditing = false;
+      document.querySelector('.profile-content').classList.remove('edit-mode');
+      document.querySelector('.profile-content').classList.add('view-mode');
+      document.getElementById('displayNameInput').value = currentUser.display_name || currentUser.username;
+    }
+
+    // Save changes
+    async function saveChanges() {
+      const newDisplayName = document.getElementById('displayNameInput').value.trim();
+      
+      if (!newDisplayName) {
+        alert('Display name cannot be empty');
+        return;
+      }
+
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.classList.add('loading');
+      saveBtn.disabled = true;
+
+      try {
+        const token = localStorage.getItem('tankas_token');
+        const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            display_name: newDisplayName
+          })
+        });
+
+        if (!response.ok) throw new Error('Failed to update profile');
+
+        const updatedUser = await response.json();
+        currentUser = updatedUser;
+        
+        alert('Profile updated successfully!');
+        displayUserProfile();
+        
+        isEditing = false;
+        document.querySelector('.profile-content').classList.remove('edit-mode');
+        document.querySelector('.profile-content').classList.add('view-mode');
+      } catch (error) {
+        console.error('Error saving changes:', error);
+        alert('Failed to save changes: ' + error.message);
+      } finally {
+        saveBtn.classList.remove('loading');
+        saveBtn.disabled = false;
+      }
+    }
+
+    // Avatar upload
+    async function handleAvatarUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // Show preview immediately
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('avatarImg').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+
+      // Upload to server
+      try {
+        const token = localStorage.getItem('tankas_token');
+        const formData = new FormData();
+        formData.append('file', file); // Try 'file' instead of 'avatar'
+
+        console.log('Uploading avatar...');
+        const response = await fetch(`${API_BASE_URL}/api/users/me/avatar`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+
+        console.log('Response status:', response.status);
+        const responseData = await response.json();
+        console.log('Response data:', responseData);
+
+        if (!response.ok) {
+          throw new Error(JSON.stringify(responseData));
+        }
+
+        currentUser.avatar = responseData.avatar_url || responseData.avatar;
+        console.log('Avatar uploaded successfully');
+        alert('Avatar updated successfully!');
+      } catch (error) {
+        console.error('Error uploading avatar:', error);
+        alert('Failed to upload avatar: ' + error.message);
+      }
+    }
+
+    // Logout
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('tankas_token');
+        window.location.href = '/index.html';
+      }
+    }
+
+    // Go back
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
