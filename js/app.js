@@ -188,7 +188,7 @@ function createIssueCard(issue) {
     const pointsBadge = issue.points_assigned > 0 ? `<span class="text-xs px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 font-medium ml-2">${issue.points_assigned} Pts</span>` : '';
 
     return `
-        <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer" onclick="window.location.href='/issue-details.html?id=${issue.id}'">
+        <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all cursor-pointer" onclick="window.location.href='issue-details.html?id=${issue.id}'">
             <img src="${issue.picture_url || 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&auto=format&fit=crop'}" 
                 alt="${issue.title}" 
                 class="w-full h-48 object-cover">
