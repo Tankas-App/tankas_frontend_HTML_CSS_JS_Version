@@ -4,7 +4,7 @@
 
 // Configuration
 const API_BASE_URL = 'https://tankas-app-api.onrender.com';
-const REDIRECT_ON_SUCCESS = '/dashboard.html'; // Set your dashboard path
+const REDIRECT_ON_SUCCESS = 'dashboard.html'; // Set your dashboard path
 
 // --- DOM References (Required for Loading/Modals) ---
 const signupModal = document.getElementById('signupModal');
