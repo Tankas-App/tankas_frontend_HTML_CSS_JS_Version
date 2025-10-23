@@ -14,7 +14,7 @@ let userLocation = null;
 function checkAuthentication() {
   const token = window.TankasApp.getToken();
   if (!token) {
-    window.location.href = '/index.html';
+    window.location.href = 'index.html';
     return false;
   }
   return true;
@@ -310,13 +310,13 @@ function handleLogout() {
   window.TankasApp.removeToken();
   window.TankasApp.showToast('Logged out successfully', 'success');
   setTimeout(() => {
-    window.location.href = '/index.html';
+    window.location.href = 'index.html';
   }, 1000);
 }
 
 function viewIssue(issueId) {
   // Navigate to issue detail page
-  window.location.href = `/issue-details.html?id=${issueId}`;
+  window.location.href = `issue-details.html?id=${issueId}`;
 }
 
 function refreshMap() {
@@ -353,10 +353,10 @@ function initNavigation() {
           window.TankasApp.showToast('Map page coming soon!', 'success');
           break;
         case 'report':
-          window.location.href = '/report-issue.html';
+          window.location.href = 'report-issue.html';
           break;
         case 'profile':
-          window.location.href = '/profile.html';
+          window.location.href = 'profile.html';
           break;
       }
     });
@@ -371,13 +371,13 @@ function initEventListeners() {
   document.getElementById('logoutBtn').addEventListener('click', handleLogout);
   document.getElementById('refreshMapBtn').addEventListener('click', refreshMap);
   document.getElementById('reportIssueBtn').addEventListener('click', () => {
-    window.location.href = '/report-issue.html';
+    window.location.href = 'report-issue.html';
   });
   document.getElementById('findTaskBtn').addEventListener('click', () => {
-    window.location.href = '/all-issues.html';
+    window.location.href = 'all-issues.html';
   });
   document.getElementById('notificationBtn').addEventListener('click', () => {
-    window.location.href = '/notifications.html';
+    window.location.href = 'notifications.html';
   });
 }
 

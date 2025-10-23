@@ -364,7 +364,7 @@ async function loadPledges() {
 function setupEventListeners() {
     document.getElementById('volunteerBtn').addEventListener('click', handleVolunteer);
     document.getElementById('resolveBtn').addEventListener('click', () => {
-        window.location.href = `/resolve-issue.html?id=${issueId}`;
+        window.location.href = `resolve-issue.html?id=${issueId}`;
     });
     document.getElementById('submitCommentBtn').addEventListener('click', handleSubmitComment);
     
@@ -403,7 +403,7 @@ async function handleResolve() {
     }
 
     // ✅ Directly redirect to the resolve page instead of resolving here
-    window.location.href = `/resolve-issue.html?id=${issueId}`;
+    window.location.href = `resolve-issue.html?id=${issueId}`;
 }
 
 // async function handleResolve() {

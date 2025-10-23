@@ -411,7 +411,7 @@ function initializeCtaLinks() {
     if (loginBtnMain) {
         loginBtnMain.textContent = isLoggedIn ? "Report New Issue" : "Log In";
         loginBtnMain.removeEventListener('click', openLoginModal);
-        loginBtnMain.addEventListener('click', isLoggedIn ? () => window.location.href = '/report-issue.html' : handleLoginCta);
+        loginBtnMain.addEventListener('click', isLoggedIn ? () => window.location.href = 'report-issue.html' : handleLoginCta);
     }
 }
 

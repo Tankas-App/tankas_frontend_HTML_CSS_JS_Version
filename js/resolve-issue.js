@@ -372,7 +372,7 @@ function showModal(title, message, type) {
 modalBtn.addEventListener('click', () => {
     modal.classList.add('hidden');
     if (modalMessage.textContent.includes('Issue Resolved') || modalMessage.textContent.includes('Thank you')) {
-        window.location.href = '/dashboard.html';
+        window.location.href = 'dashboard.html';
     }
     if (resolveBtn.innerHTML.includes('Processing')) {
         resolveBtn.innerHTML = '<span class="material-symbols-outlined">task_alt</span> Mark as Resolved';

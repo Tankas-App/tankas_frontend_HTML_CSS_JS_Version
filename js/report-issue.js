@@ -15,7 +15,7 @@ function checkAuth() {
   if (!token) {
     window.TankasApp.showToast('Please login first', 'error');
     setTimeout(() => {
-      window.location.href = '/index.html';
+      window.location.href = 'index.html';
     }, 1500);
     return false;
   }
@@ -270,7 +270,7 @@ document.getElementById('reportIssueForm').addEventListener('submit', async (eve
 
     // Redirect to dashboard after short delay
     setTimeout(() => {
-      window.location.href = '/dashboard.html';
+      window.location.href = 'dashboard.html';
     }, 2000);
 
   } catch (error) {
